@@ -34,7 +34,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $task=Task::create($request->validated());
-        return $task->toResource();
+        return $task->toResource();    // menampilkan ke postman yang memanggil
     }
 
     /**
@@ -59,7 +59,8 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $task->update($request->validated());
+        return $task->toResource();
     }
 
     /**
@@ -67,6 +68,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return response()->noContent();
     }
 }
